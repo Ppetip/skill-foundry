@@ -1,0 +1,137 @@
+[
+  {
+    "id": "train-access-False-0",
+    "state": {
+      "kind": "access",
+      "verified": false,
+      "resolved": false
+    },
+    "action": "verify"
+  },
+  {
+    "id": "train-access-False-1",
+    "state": {
+      "kind": "access",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "reset"
+  },
+  {
+    "id": "train-access-False-2",
+    "state": {
+      "kind": "access",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  },
+  {
+    "id": "train-access-True-0",
+    "state": {
+      "kind": "access",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "reset"
+  },
+  {
+    "id": "train-access-True-1",
+    "state": {
+      "kind": "access",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  },
+  {
+    "id": "train-billing-False-0",
+    "state": {
+      "kind": "billing",
+      "verified": false,
+      "resolved": false
+    },
+    "action": "verify"
+  },
+  {
+    "id": "train-billing-False-1",
+    "state": {
+      "kind": "billing",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "refund"
+  },
+  {
+    "id": "train-billing-False-2",
+    "state": {
+      "kind": "billing",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  },
+  {
+    "id": "train-billing-True-0",
+    "state": {
+      "kind": "billing",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "refund"
+  },
+  {
+    "id": "train-billing-True-1",
+    "state": {
+      "kind": "billing",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  },
+  {
+    "id": "train-technical-False-0",
+    "state": {
+      "kind": "technical",
+      "verified": false,
+      "resolved": false
+    },
+    "action": "verify"
+  },
+  {
+    "id": "train-technical-False-1",
+    "state": {
+      "kind": "technical",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "diagnose"
+  },
+  {
+    "id": "train-technical-False-2",
+    "state": {
+      "kind": "technical",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  },
+  {
+    "id": "train-technical-True-0",
+    "state": {
+      "kind": "technical",
+      "verified": true,
+      "resolved": false
+    },
+    "action": "diagnose"
+  },
+  {
+    "id": "train-technical-True-1",
+    "state": {
+      "kind": "technical",
+      "verified": true,
+      "resolved": true
+    },
+    "action": "close"
+  }
+]

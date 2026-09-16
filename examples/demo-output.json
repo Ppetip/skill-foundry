@@ -1,0 +1,633 @@
+{
+  "data": "synthetic-expert-trajectories",
+  "model": {
+    "schema_version": 1,
+    "algorithm": "categorical decision tree",
+    "known_kinds": [
+      "access",
+      "billing",
+      "technical"
+    ],
+    "known_states": [
+      "{\"kind\": \"access\", \"resolved\": false, \"verified\": false}",
+      "{\"kind\": \"access\", \"resolved\": false, \"verified\": true}",
+      "{\"kind\": \"access\", \"resolved\": true, \"verified\": true}",
+      "{\"kind\": \"billing\", \"resolved\": false, \"verified\": false}",
+      "{\"kind\": \"billing\", \"resolved\": false, \"verified\": true}",
+      "{\"kind\": \"billing\", \"resolved\": true, \"verified\": true}",
+      "{\"kind\": \"technical\", \"resolved\": false, \"verified\": false}",
+      "{\"kind\": \"technical\", \"resolved\": false, \"verified\": true}",
+      "{\"kind\": \"technical\", \"resolved\": true, \"verified\": true}"
+    ],
+    "tree": {
+      "feature": "resolved",
+      "children": {
+        "False": {
+          "feature": "kind",
+          "children": {
+            "access": {
+              "feature": "verified",
+              "children": {
+                "False": {
+                  "action": "verify",
+                  "confidence": 1.0,
+                  "samples": 1
+                },
+                "True": {
+                  "action": "reset",
+                  "confidence": 1.0,
+                  "samples": 2
+                }
+              }
+            },
+            "billing": {
+              "feature": "verified",
+              "children": {
+                "False": {
+                  "action": "verify",
+                  "confidence": 1.0,
+                  "samples": 1
+                },
+                "True": {
+                  "action": "refund",
+                  "confidence": 1.0,
+                  "samples": 2
+                }
+              }
+            },
+            "technical": {
+              "feature": "verified",
+              "children": {
+                "False": {
+                  "action": "verify",
+                  "confidence": 1.0,
+                  "samples": 1
+                },
+                "True": {
+                  "action": "diagnose",
+                  "confidence": 1.0,
+                  "samples": 2
+                }
+              }
+            }
+          }
+        },
+        "True": {
+          "action": "close",
+          "confidence": 1.0,
+          "samples": 6
+        }
+      }
+    },
+    "training_rows": 15
+  },
+  "comparisons": [
+    {
+      "policy": "learned",
+      "completed": 6,
+      "handoffs": 2,
+      "invalid_actions": 0,
+      "trials": [
+        {
+          "id": "eval-access-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "reset",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-access-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "reset",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "refund",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "refund",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "diagnose",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "diagnose",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-False",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-True",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "policy": "expert-rules",
+      "completed": 6,
+      "handoffs": 2,
+      "invalid_actions": 0,
+      "trials": [
+        {
+          "id": "eval-access-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "reset",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-access-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "reset",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "refund",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "refund",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-False",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "diagnose",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-True",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "diagnose",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-False",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-True",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "policy": "always-close",
+      "completed": 0,
+      "handoffs": 0,
+      "invalid_actions": 8,
+      "trials": [
+        {
+          "id": "eval-access-False",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-access-True",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-False",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-billing-True",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-False",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-technical-True",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "technical",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-False",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        },
+        {
+          "id": "eval-unseen-security-review-True",
+          "status": "invalid-action",
+          "trace": [
+            {
+              "state": {
+                "kind": "unseen-security-review",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "close",
+              "status": "invalid-action"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitation": "Tiny behavior-cloning sandbox, not LLM distillation. Evaluation IDs differ but known state combinations recur from training; this checks execution and unsupported-state handoff, not novel-task generalization. The conservative support guard only accepts previously observed state combinations. Leaf purity is not calibrated confidence."
+}

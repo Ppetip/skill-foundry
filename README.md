@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-10 tests passed locally on Python 3.13. Other Python versions have not yet been exercised.
+13 tests passed locally on Python 3.13. Other Python versions have not yet been exercised.
 
 ## Architecture
 
@@ -54,3 +54,9 @@ Describe a repetitive workflow with clear steps and a reliable definition of suc
 ## License
 
 Copyright (c) 2026 Ppetip. Original code is licensed under GNU GPL version 3 only; see [LICENSE](LICENSE).
+
+## Latest development pass
+
+Separate seen-state execution from deliberately held-out initial states.
+
+Run `python evaluation.py`: one seen case completes; both unseen cases hand off. Downstream states can overlap training. This does not demonstrate novel-task generalization.

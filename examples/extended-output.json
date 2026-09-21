@@ -1,0 +1,84 @@
+{
+  "partitions": {
+    "seen_initial_state": {
+      "cases": 1,
+      "completed": 1,
+      "handoffs": 0,
+      "invalid_actions": 0,
+      "trials": [
+        {
+          "id": "known-access",
+          "status": "complete",
+          "trace": [
+            {
+              "state": {
+                "kind": "access",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "verify",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "reset",
+              "status": "running"
+            },
+            {
+              "state": {
+                "kind": "access",
+                "verified": true,
+                "resolved": true
+              },
+              "action": "close",
+              "status": "complete"
+            }
+          ]
+        }
+      ]
+    },
+    "held_out_initial_state": {
+      "cases": 2,
+      "completed": 0,
+      "handoffs": 2,
+      "invalid_actions": 0,
+      "trials": [
+        {
+          "id": "held-out-billing",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "billing",
+                "verified": false,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        },
+        {
+          "id": "unknown-kind",
+          "status": "handoff",
+          "trace": [
+            {
+              "state": {
+                "kind": "security",
+                "verified": true,
+                "resolved": false
+              },
+              "action": "handoff",
+              "status": "handoff"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "limitation": "Synthetic initial-state holdout. Downstream states may be seen in training. Conservative policy abstains on unseen combinations; this does not demonstrate novel-task generalization."
+}

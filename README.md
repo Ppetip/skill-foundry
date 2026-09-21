@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-29 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+32 tests pass locally on Python 3.13; updated hosted verification is pending.
 
 ## Architecture
 
@@ -106,3 +106,7 @@ Jev proposes verify before refund; the environment rejects unsafe teacher action
 For a genuinely new allowance only, run `python jev_client.py --init-budget /absolute/path/to/jev-budget.sqlite3` once, then use that exact path in `JEV_BUDGET_DB` for every app. Initialization refuses existing files, including empty files. Do not initialize a new ledger to replace lost spending history. Existing users keep their existing ledger and skip setup.
 
 Live clients now open existing ledgers only, including at reservation time. A missing, mistyped, or empty ledger stops calls instead of silently recreating a zero balance. Restore missing history from a trusted backup; do not reset it. This prevents accidental recreation, not deliberate administrator modification or substitution of a different valid database.
+
+## Latest reliability improvement
+
+`rollout(initial, policy, max_steps=4)` now rejects malformed initial states and invalid step limits before invoking the policy. Exhausting a valid bound returns `step-limit` with the recorded trace. No new teacher inference or policy training was performed in this pass.

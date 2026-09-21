@@ -102,6 +102,9 @@ def predict(model, state, threshold=.8):
 
 
 def rollout(initial, policy, max_steps=4):
+    validate_state(initial)
+    if type(max_steps) is not int or not 1 <= max_steps <= 1000:
+        raise ValueError("max_steps must be an integer between 1 and 1000")
     state = dict(initial)
     trace = []
     for _ in range(max_steps):

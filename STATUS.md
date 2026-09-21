@@ -1,11 +1,11 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 29 offline tests pass; dry run and live synthetic Jev workflow pass.
+Verified: 32 offline tests pass; dry run and live synthetic Jev workflow pass.
 
-Latest: Jev proposes verify before refund; the environment rejects unsafe teacher actions.
+Latest: Rollouts validate the initial state and require an integer step bound from 1 to 1,000 before calling a policy.
 
-Next: Collect independently checked teacher trajectories, then evaluate held-out policy behavior.
+Next: Collect independently checked teacher trajectories and test shifted environments.
 
 Repository: https://github.com/Ppetip/skill-foundry
 Budget: one shared $3 cumulative Jev allowance across the portfolio, never per project or cycle.
@@ -20,3 +20,5 @@ Hosted verification: https://github.com/Ppetip/skill-foundry/actions/runs/355902
 2026-09-21 14:42 UTC budget fix: live clients require an existing ledger; explicit initialization refuses overwrite. Added four regression cases for missing/deleted/empty ledgers and preserved spending. All local tests, CLI checks, and four hosted Windows/Linux Python 3.11/3.13 jobs pass. No additional Jev calls.
 
 Budget-fix hosted verification: https://github.com/Ppetip/skill-foundry/actions/runs/35614396787
+
+2026-09-21 18:44 UTC: Rollouts validate the initial state and require an integer step bound from 1 to 1,000 before calling a policy. Local tests and offline CLI checks pass; updated hosted matrix pending. No additional Jev calls.

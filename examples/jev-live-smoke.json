@@ -1,0 +1,21 @@
+{
+  "mode": "live-model-on-synthetic-data",
+  "model": "jev-1.13.0",
+  "proposed_action": "verify",
+  "guarded_action": "verify",
+  "rules_baseline": "verify",
+  "next_state": {
+    "kind": "billing",
+    "verified": true,
+    "resolved": false
+  },
+  "status": "running",
+  "usage": [
+    {
+      "input_tokens": 444,
+      "output_tokens": 62
+    }
+  ],
+  "limitation": "One synthetic teacher decision with independent precondition enforcement. No labels automatically accepted for training; no distillation claim.",
+  "recorded_at_utc": "2026-09-21"
+}

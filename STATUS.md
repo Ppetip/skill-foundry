@@ -24,3 +24,5 @@ Budget-fix hosted verification: https://github.com/Ppetip/skill-foundry/actions/
 2026-09-21 18:44 UTC: Rollouts validate the initial state and require an integer step bound from 1 to 1,000 before calling a policy. Local tests, offline CLI checks, and all four hosted matrix jobs pass. No additional Jev calls.
 
 Feature-pass verification: https://github.com/Ppetip/skill-foundry/actions/runs/35640907538
+
+2026-09-21 22:45 UTC: documented how to interpret this tool's outcomes separately from command success. The local Codex runner now shows a concise outcome summary for this project. Verified through common-runner checks and synthetic demo output; histories stay local.

@@ -110,3 +110,5 @@ Live clients now open existing ledgers only, including at reservation time. A mi
 ## Latest reliability improvement
 
 `rollout(initial, policy, max_steps=4)` now rejects malformed initial states and invalid step limits before invoking the policy. Exhausting a valid bound returns `step-limit` with the recorded trace. No new teacher inference or policy training was performed in this pass.
+
+See [Reading results](docs/RESULTS.md) for outcome fields, denominators, abstentions and the limits of command success.

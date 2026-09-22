@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-32 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+35 tests pass locally on Python 3.13; updated hosted matrix pending.
 
 ## Architecture
 
@@ -112,3 +112,7 @@ Live clients now open existing ledgers only, including at reservation time. A mi
 `rollout(initial, policy, max_steps=4)` now rejects malformed initial states and invalid step limits before invoking the policy. Exhausting a valid bound returns `step-limit` with the recorded trace. No new teacher inference or policy training was performed in this pass.
 
 See [Reading results](docs/RESULTS.md) for outcome fields, denominators, abstentions and the limits of command success.
+
+## New evaluation path
+
+Run `python app.py --audit-teacher`, optionally with `--input trajectories.json`. The audit returns accepted IDs and rejected IDs/reasons; invalid row schemas are errors. Conservative handoff is allowed. Passing means only that the action satisfies this sandbox, not that it is an optimal teacher label. No training happens and `--model-out` is incompatible with audit mode.

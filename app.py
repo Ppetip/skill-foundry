@@ -142,12 +142,40 @@ def demo():
             "limitation": "Tiny behavior-cloning sandbox, not LLM distillation. Evaluation IDs differ but known state combinations recur from training; this checks execution and unsupported-state handoff, not novel-task generalization. The conservative support guard only accepts previously observed state combinations. Leaf purity is not calibrated confidence."}
 
 
+def audit_teacher(rows):
+    """Check labels against sandbox action preconditions without training."""
+    if not isinstance(rows, list):
+        raise ValueError("teacher rows must be an array")
+    seen, rejected, accepted = set(), [], []
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get("id"), str) or not row["id"] or row["id"] in seen:
+            raise ValueError("unique teacher row IDs required")
+        seen.add(row["id"])
+        validate_state(row["state"])
+        action = row.get("action")
+        if not isinstance(action, str) or action not in {"verify", "close", "handoff", *KINDS.values()}:
+            raise ValueError("unknown teacher action")
+        _, status = step(row["state"], action)
+        if status == "invalid-action":
+            rejected.append({"id":row["id"],"reason":"action precondition violated"})
+        else:
+            accepted.append(row["id"])
+    return {"accepted_ids":accepted,"rejected":rejected,"training_performed":False,
+            "limitation":"Sandbox preconditions only; passing labels are not proof of useful teaching or generalization."}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--input", type=Path, help="JSON training rows; otherwise run the synthetic demo")
     p.add_argument("--model-out", type=Path, help="Write learned policy JSON to a new file")
+    p.add_argument("--audit-teacher", action="store_true", help="Validate labels without training")
     a = p.parse_args()
-    result = {"model": train(json.loads(a.input.read_text(encoding="utf-8")))} if a.input else demo()
+    if a.audit_teacher and a.model_out:
+        p.error("--audit-teacher does not produce a trained model")
+    if a.audit_teacher:
+        result = audit_teacher(json.loads(a.input.read_text(encoding="utf-8")) if a.input else dataset())
+    else:
+        result = {"model": train(json.loads(a.input.read_text(encoding="utf-8")))} if a.input else demo()
     if a.model_out:
         with a.model_out.open("x", encoding="utf-8") as out:
             json.dump(result["model"], out, indent=2)

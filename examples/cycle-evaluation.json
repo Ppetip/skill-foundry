@@ -1,0 +1,22 @@
+{
+  "accepted_ids": [
+    "train-access-False-0",
+    "train-access-False-1",
+    "train-access-False-2",
+    "train-access-True-0",
+    "train-access-True-1",
+    "train-billing-False-0",
+    "train-billing-False-1",
+    "train-billing-False-2",
+    "train-billing-True-0",
+    "train-billing-True-1",
+    "train-technical-False-0",
+    "train-technical-False-1",
+    "train-technical-False-2",
+    "train-technical-True-0",
+    "train-technical-True-1"
+  ],
+  "rejected": [],
+  "training_performed": false,
+  "limitation": "Sandbox preconditions only; passing labels are not proof of useful teaching or generalization."
+}

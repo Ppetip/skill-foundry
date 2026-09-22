@@ -1,11 +1,11 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 32 offline tests pass; dry run and live synthetic Jev workflow pass.
+Verified: 35 offline tests pass; dry run and live synthetic Jev workflow pass.
 
-Latest: Rollouts validate the initial state and require an integer step bound from 1 to 1,000 before calling a policy.
+Latest: Teacher-label audit checks sandbox preconditions without training or accepting labels automatically.
 
-Next: Collect independently checked teacher trajectories and test shifted environments.
+Next: Evaluate teacher trajectories on shifted environments with independent outcomes.
 
 Repository: https://github.com/Ppetip/skill-foundry
 Budget: one shared $3 cumulative Jev allowance across the portfolio, never per project or cycle.
@@ -26,3 +26,5 @@ Budget-fix hosted verification: https://github.com/Ppetip/skill-foundry/actions/
 Feature-pass verification: https://github.com/Ppetip/skill-foundry/actions/runs/35640907538
 
 2026-09-21 22:45 UTC: documented how to interpret this tool's outcomes separately from command success. The local Codex runner now shows a concise outcome summary for this project. Verified through common-runner checks and synthetic demo output; histories stay local.
+
+2026-09-22 02:46 UTC: Teacher-label audit checks sandbox preconditions without training or accepting labels automatically. Common-runner checks and new route pass locally; hosted verification pending. No new Jev calls.

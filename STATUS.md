@@ -31,4 +31,6 @@ Feature-pass verification: https://github.com/Ppetip/skill-foundry/actions/runs/
 
 Evaluation-path verification: https://github.com/Ppetip/skill-foundry/actions/runs/35681205403
 
-2026-09-22 10:48 UTC: The environment now validates action preconditions independently of the expert teacher function. A deliberately faulty teacher that refunds before verification fails both rollout and the teacher audit. Handoff remains permitted, and the existing known-kind/verification/resolution rules are unchanged. Independence here means separate code paths within the same synthetic task specification, not external review or real-world validation. Local tests pass; publication and hosted verification pending. No new Jev calls.
+2026-09-22 10:48 UTC: The environment now validates action preconditions independently of the expert teacher function. A deliberately faulty teacher that refunds before verification fails both rollout and the teacher audit. Handoff remains permitted, and the existing known-kind/verification/resolution rules are unchanged. Independence here means separate code paths within the same synthetic task specification, not external review or real-world validation. Published and verified: local checks and all four hosted matrix jobs pass. No new Jev calls.
+
+Reliability verification: https://github.com/Ppetip/skill-foundry/actions/runs/35718655877

@@ -33,7 +33,14 @@ def step(state, action):
     validate_state(state)
     if action == "handoff":
         return dict(state), "handoff"
-    if action != expert(state):
+    # Environment preconditions must not call the teacher being evaluated.
+    known = state["kind"] in KINDS
+    valid = known and (
+        (action == "close" and state["resolved"])
+        or (action == "verify" and not state["resolved"] and not state["verified"])
+        or (action == KINDS[state["kind"]] and not state["resolved"] and state["verified"])
+    )
+    if not valid:
         return dict(state), "invalid-action"
     out = dict(state)
     if action == "close":

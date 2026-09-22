@@ -1,9 +1,9 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 35 offline tests pass; dry run and live synthetic Jev workflow pass.
+Verified: 38 offline tests pass; dry run and live synthetic Jev workflow pass.
 
-Latest: Teacher-label audit checks sandbox preconditions without training or accepting labels automatically.
+Latest: The environment now validates action preconditions independently of the expert teacher function.
 
 Next: Evaluate teacher trajectories on shifted environments with independent outcomes.
 
@@ -30,3 +30,5 @@ Feature-pass verification: https://github.com/Ppetip/skill-foundry/actions/runs/
 2026-09-22 02:46 UTC: Teacher-label audit checks sandbox preconditions without training or accepting labels automatically. Common-runner checks, new route and all four hosted jobs pass. No new Jev calls.
 
 Evaluation-path verification: https://github.com/Ppetip/skill-foundry/actions/runs/35681205403
+
+2026-09-22 10:48 UTC: The environment now validates action preconditions independently of the expert teacher function. A deliberately faulty teacher that refunds before verification fails both rollout and the teacher audit. Handoff remains permitted, and the existing known-kind/verification/resolution rules are unchanged. Independence here means separate code paths within the same synthetic task specification, not external review or real-world validation. Local tests pass; publication and hosted verification pending. No new Jev calls.

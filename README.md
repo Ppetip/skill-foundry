@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-35 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+38 tests pass locally on Windows with Python 3.13; hosted verification for this update is pending.
 
 ## Architecture
 
@@ -116,3 +116,7 @@ See [Reading results](docs/RESULTS.md) for outcome fields, denominators, abstent
 ## New evaluation path
 
 Run `python app.py --audit-teacher`, optionally with `--input trajectories.json`. The audit returns accepted IDs and rejected IDs/reasons; invalid row schemas are errors. Conservative handoff is allowed. Passing means only that the action satisfies this sandbox, not that it is an optimal teacher label. No training happens and `--model-out` is incompatible with audit mode.
+
+## Evaluation reliability
+
+The environment now validates action preconditions independently of the expert teacher function. A deliberately faulty teacher that refunds before verification fails both rollout and the teacher audit. Handoff remains permitted, and the existing known-kind/verification/resolution rules are unchanged. Independence here means separate code paths within the same synthetic task specification, not external review or real-world validation.

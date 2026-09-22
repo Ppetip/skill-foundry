@@ -1,11 +1,11 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 38 offline tests pass; dry run and live synthetic Jev workflow pass.
+Verified: 41 offline tests pass; dry run and live synthetic Jev workflow pass.
 
-Latest: The environment now validates action preconditions independently of the expert teacher function.
+Latest: Run `python challenge.py` (Codex route `challenge`).
 
-Next: Evaluate teacher trajectories on shifted environments with independent outcomes.
+Next: Evaluate a separately specified transition change before claiming adaptation to changed environments.
 
 Repository: https://github.com/Ppetip/skill-foundry
 Budget: one shared $3 cumulative Jev allowance across the portfolio, never per project or cycle.
@@ -34,3 +34,5 @@ Evaluation-path verification: https://github.com/Ppetip/skill-foundry/actions/ru
 2026-09-22 10:48 UTC: The environment now validates action preconditions independently of the expert teacher function. A deliberately faulty teacher that refunds before verification fails both rollout and the teacher audit. Handoff remains permitted, and the existing known-kind/verification/resolution rules are unchanged. Independence here means separate code paths within the same synthetic task specification, not external review or real-world validation. Published and verified: local checks and all four hosted matrix jobs pass. No new Jev calls.
 
 Reliability verification: https://github.com/Ppetip/skill-foundry/actions/runs/35718655877
+
+2026-09-22 22:50 UTC: Run `python challenge.py` (Codex route `challenge`). Two tiny decision trees are trained locally on original and deliberately corrupted synthetic teacher rows. The known task completes, two changed initial states hand off, and a premature refund from the corrupted teacher is caught as an invalid action. All four expected outcomes match; that means detection and handoff worked, not four tasks completed. Environment transition rules are unchanged, so this is not a changed-environment transfer test or LLM distillation. See `examples/extended-evaluation.json`. Common-runner checks pass. Publication and hosted verification pending. No new Jev calls.

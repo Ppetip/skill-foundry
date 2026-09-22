@@ -1,0 +1,93 @@
+{
+  "data": "synthetic-state-and-teacher-challenges",
+  "trials": [
+    {
+      "id": "known",
+      "expected_status": "complete",
+      "matched": true,
+      "status": "complete",
+      "trace": [
+        {
+          "state": {
+            "kind": "access",
+            "verified": false,
+            "resolved": false
+          },
+          "action": "verify",
+          "status": "running"
+        },
+        {
+          "state": {
+            "kind": "access",
+            "verified": true,
+            "resolved": false
+          },
+          "action": "reset",
+          "status": "running"
+        },
+        {
+          "state": {
+            "kind": "access",
+            "verified": true,
+            "resolved": true
+          },
+          "action": "close",
+          "status": "complete"
+        }
+      ]
+    },
+    {
+      "id": "unseen-combination",
+      "expected_status": "handoff",
+      "matched": true,
+      "status": "handoff",
+      "trace": [
+        {
+          "state": {
+            "kind": "access",
+            "verified": false,
+            "resolved": true
+          },
+          "action": "handoff",
+          "status": "handoff"
+        }
+      ]
+    },
+    {
+      "id": "new-kind",
+      "expected_status": "handoff",
+      "matched": true,
+      "status": "handoff",
+      "trace": [
+        {
+          "state": {
+            "kind": "security",
+            "verified": true,
+            "resolved": false
+          },
+          "action": "handoff",
+          "status": "handoff"
+        }
+      ]
+    },
+    {
+      "id": "corrupted-teacher",
+      "expected_status": "invalid-action",
+      "matched": true,
+      "status": "invalid-action",
+      "trace": [
+        {
+          "state": {
+            "kind": "billing",
+            "verified": false,
+            "resolved": false
+          },
+          "action": "refund",
+          "status": "invalid-action"
+        }
+      ]
+    }
+  ],
+  "matched": 4,
+  "limitation": "Tiny decision trees trained locally on synthetic rows. Changed initial states and labels, not a changed environment transition model or LLM distillation. A caught invalid action is successful detection, not task completion. No generalized transfer claim."
+}

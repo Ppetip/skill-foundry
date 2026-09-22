@@ -10,6 +10,8 @@ COMMANDS = [['app.py'], ['jev_workflow.py'], ['evaluation.py']]
 
 COMMANDS.append(['app.py', '--audit-teacher'])
 
+COMMANDS.append(['challenge.py'])
+
 def main():
     for args in COMMANDS:
         result = subprocess.run([sys.executable, *args], cwd=ROOT, capture_output=True,

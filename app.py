@@ -78,15 +78,17 @@ def tree(rows, features):
 
 
 def train(rows):
-    if not rows:
-        raise ValueError("training rows required")
+    if not isinstance(rows, list) or not rows:
+        raise ValueError("training rows must be a nonempty array")
     ids = set()
     for row in rows:
-        validate_state(row["state"])
+        if not isinstance(row, dict):
+            raise ValueError("training rows must be objects")
+        validate_state(row.get("state"))
         if not isinstance(row.get("id"), str) or not row["id"] or row["id"] in ids:
             raise ValueError("unique training IDs required")
         ids.add(row["id"])
-        if row.get("action") not in {"verify", "close", "handoff", *KINDS.values()}:
+        if not isinstance(row.get("action"), str) or row["action"] not in {"verify", "close", "handoff", *KINDS.values()}:
             raise ValueError("unknown training action")
     return {"schema_version": 1, "algorithm": "categorical decision tree",
             "known_kinds": sorted({r["state"]["kind"] for r in rows}),
@@ -96,8 +98,8 @@ def train(rows):
 
 def predict(model, state, threshold=.8):
     validate_state(state)
-    if not 0 <= threshold <= 1:
-        raise ValueError("threshold must be between zero and one")
+    if type(threshold) not in (int, float) or not 0 <= threshold <= 1:
+        raise ValueError("threshold must be a finite number between zero and one")
     if state["kind"] not in model["known_kinds"] or json.dumps(state, sort_keys=True) not in model["known_states"]:
         return "handoff"
     node = model["tree"]
@@ -158,7 +160,7 @@ def audit_teacher(rows):
         if not isinstance(row, dict) or not isinstance(row.get("id"), str) or not row["id"] or row["id"] in seen:
             raise ValueError("unique teacher row IDs required")
         seen.add(row["id"])
-        validate_state(row["state"])
+        validate_state(row.get("state"))
         action = row.get("action")
         if not isinstance(action, str) or action not in {"verify", "close", "handoff", *KINDS.values()}:
             raise ValueError("unknown teacher action")

@@ -1,7 +1,7 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 41 offline tests pass; dry run and live synthetic Jev workflow pass.
+Verified: 46 offline tests and five CLI checks pass locally. Earlier synthetic Jev smoke results remain historical; no new live calls this cycle.
 
 Latest: Run `python challenge.py` (Codex route `challenge`).
 
@@ -38,3 +38,12 @@ Reliability verification: https://github.com/Ppetip/skill-foundry/actions/runs/3
 2026-09-22 22:50 UTC: Run `python challenge.py` (Codex route `challenge`). Two tiny decision trees are trained locally on original and deliberately corrupted synthetic teacher rows. The known task completes, two changed initial states hand off, and a premature refund from the corrupted teacher is caught as an invalid action. All four expected outcomes match; that means detection and handoff worked, not four tasks completed. Environment transition rules are unchanged, so this is not a changed-environment transfer test or LLM distillation. See `examples/extended-evaluation.json`. Common-runner checks pass. Published and verified: all four hosted Windows/Linux Python 3.11/3.13 jobs pass. No new Jev calls.
 
 Extended evaluation verification: https://github.com/Ppetip/skill-foundry/actions/runs/35795076069
+
+2026-09-23 06:53 UTC: Training now rejects malformed JSON containers, row objects,
+missing states and non-string action labels with ValueError before building a tree.
+Teacher audits reject missing states consistently. Prediction rejects boolean,
+non-numeric and non-finite thresholds. Five new regressions cover validation before
+training, input preservation, valid threshold endpoints, and absence of model output
+after invalid CLI input. Common-runner checks pass: 46 tests and five offline CLI
+checks. Hosted verification for this change is pending. No live calls or provider
+spending; tests train only the existing tiny synthetic decision-tree fixtures.

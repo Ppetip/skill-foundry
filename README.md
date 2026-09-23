@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-41 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+46 tests and five offline CLI checks pass locally. Hosted Windows/Linux Python 3.11/3.13 verification for the latest input-validation change is pending; the preceding 41-test revision passed GitHub Actions.
 
 ## Architecture
 
@@ -124,3 +124,13 @@ The environment now validates action preconditions independently of the expert t
 ## Extended evaluation
 
 Run `python challenge.py` (Codex route `challenge`). Two tiny decision trees are trained locally on original and deliberately corrupted synthetic teacher rows. The known task completes, two changed initial states hand off, and a premature refund from the corrupted teacher is caught as an invalid action. All four expected outcomes match; that means detection and handoff worked, not four tasks completed. Environment transition rules are unchanged, so this is not a changed-environment transfer test or LLM distillation. See `examples/extended-evaluation.json`.
+
+## Input validation
+
+Training requires a nonempty JSON array of objects with unique nonempty string IDs,
+valid `state` objects, and recognized string action labels. Missing states and
+malformed action values raise `ValueError` before tree construction. Teacher audits
+also report missing states as validation errors. Prediction thresholds must be finite
+numbers from zero to one; booleans are rejected. Invalid CLI training input does not
+create the requested model artifact. These are input-shape checks, not proof that
+teacher labels are correct; use the separate teacher audit for action preconditions.

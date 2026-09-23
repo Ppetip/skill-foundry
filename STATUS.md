@@ -49,3 +49,5 @@ checks. Hosted verification passed on all four OS/Python combinations. No live c
 spending; tests train only the existing tiny synthetic decision-tree fixtures.
 
 2026-09-23 10:54 UTC verification follow-up: Published code and all four hosted jobs verified after the earlier approval-review usage-limit interruption. Existing check suites were not rerun solely to create history. Run: https://github.com/Ppetip/skill-foundry/actions/runs/35829403189
+
+2026-09-23 14:55 UTC: Added guidance for interpreting saved-check freshness in the optional local Codex runner. A current check validates training, prediction and environment behavior on controlled fixtures. It does not certify a separately trained model or novel-task performance. The shared runner now records check-source fingerprints and provides read-only status. All five current app checks passed (234 tests total), along with 24 local runner regressions. Run ID: 811900b822db42e390b5e1714afbbe25. App implementation unchanged; this documentation update skips redundant hosted CI. No live calls or new performance claim.

@@ -1,9 +1,9 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 46 offline tests and five CLI checks pass locally. Earlier synthetic Jev smoke results remain historical; no new live calls this cycle.
+Verified: 46 offline tests and all four hosted matrix jobs pass. Jev smoke results remain historical; no new live calls.
 
-Latest: Run `python challenge.py` (Codex route `challenge`).
+Latest: Training, teacher audits and prediction validate malformed inputs before producing a model or prediction.
 
 Next: Evaluate a separately specified transition change before claiming adaptation to changed environments.
 
@@ -45,5 +45,7 @@ Teacher audits reject missing states consistently. Prediction rejects boolean,
 non-numeric and non-finite thresholds. Five new regressions cover validation before
 training, input preservation, valid threshold endpoints, and absence of model output
 after invalid CLI input. Common-runner checks pass: 46 tests and five offline CLI
-checks. Hosted verification for this change is pending. No live calls or provider
+checks. Hosted verification passed on all four OS/Python combinations. No live calls or provider
 spending; tests train only the existing tiny synthetic decision-tree fixtures.
+
+2026-09-23 10:54 UTC verification follow-up: Published code and all four hosted jobs verified after the earlier approval-review usage-limit interruption. Existing check suites were not rerun solely to create history. Run: https://github.com/Ppetip/skill-foundry/actions/runs/35829403189

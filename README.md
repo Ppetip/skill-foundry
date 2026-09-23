@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-46 tests and five offline CLI checks pass locally. Hosted Windows/Linux Python 3.11/3.13 verification for the latest input-validation change is pending; the preceding 41-test revision passed GitHub Actions.
+46 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
 
 ## Architecture
 

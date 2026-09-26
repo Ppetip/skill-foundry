@@ -96,18 +96,34 @@ def train(rows):
             "tree": tree(rows, list(FEATURES)), "training_rows": len(rows)}
 
 
-def predict(model, state, threshold=.8):
+def predict_decision(model, state, threshold=.8):
+    """Explain a guarded prediction from a trusted in-memory policy model."""
     validate_state(state)
     if type(threshold) not in (int, float) or not 0 <= threshold <= 1:
         raise ValueError("threshold must be a finite number between zero and one")
-    if state["kind"] not in model["known_kinds"] or json.dumps(state, sort_keys=True) not in model["known_states"]:
-        return "handoff"
+    result = {"action": "handoff", "reason": None, "threshold": threshold,
+              "path": [], "leaf_purity": None, "leaf_samples": None}
+    if state["kind"] not in model["known_kinds"]:
+        return {**result, "reason": "unknown-kind"}
+    if json.dumps(state, sort_keys=True) not in model["known_states"]:
+        return {**result, "reason": "unseen-state"}
     node = model["tree"]
     while "feature" in node:
-        node = node["children"].get(str(state[node["feature"]]))
+        feature = node["feature"]
+        value = str(state[feature])
+        result["path"].append({"feature": feature, "value": value})
+        node = node["children"].get(value)
         if node is None:
-            return "handoff"
-    return node["action"] if node["confidence"] >= threshold else "handoff"
+            return {**result, "reason": "missing-branch"}
+    result.update(leaf_purity=node["confidence"], leaf_samples=node.get("samples"))
+    if not node["confidence"] >= threshold:
+        return {**result, "reason": "below-threshold"}
+    return {**result, "action": node["action"],
+            "reason": "learned-handoff" if node["action"] == "handoff" else "selected"}
+
+
+def predict(model, state, threshold=.8):
+    return predict_decision(model, state, threshold)["action"]
 
 
 def rollout(initial, policy, max_steps=4):

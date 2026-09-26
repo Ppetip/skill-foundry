@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-46 tests pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+53 tests and five offline CLI paths pass locally; hosted prediction-explanation verification is pending.
 
 ## Architecture
 
@@ -134,3 +134,13 @@ also report missing states as validation errors. Prediction thresholds must be f
 numbers from zero to one; booleans are rejected. Invalid CLI training input does not
 create the requested model artifact. These are input-shape checks, not proof that
 teacher labels are correct; use the separate teacher audit for action preconditions.
+
+## Explain a learned action or handoff
+
+Call `predict_decision(model, state, threshold=0.8)` to inspect the action, reason, threshold, traversed feature/value path, `leaf_purity` and `leaf_samples`. `predict` still returns only the action using the same decision rule. Reasons distinguish `unknown-kind`, `unseen-state`, `missing-branch`, `below-threshold`, `learned-handoff` and `selected`. Checks stop at the first applicable guard. When no leaf is reached, leaf fields are null; models lacking optional sample metadata also report null samples.
+
+Leaf purity is the fraction of training rows at that leaf carrying its majority label; samples count rows, including repeated states. Neither is calibrated probability or independent evidence of success. An explicitly learned handoff differs from a support guard rejecting a state. A selected action still has to satisfy the separate environment preconditions.
+
+`python challenge.py` now includes `initial_prediction` for each synthetic case. It explains only that case's starting decision, not every later rollout step. The deliberately corrupted teacher can still produce a selected but invalid refund; the environment rejects it. This report makes that distinction visible without changing the environment rules. The example trains tiny local decision trees, not an LLM, and is not a production reliability benchmark.
+
+Prediction only reads the caller-supplied in-memory model and state; it does not execute tools, train, deploy or write files. State and threshold validation remain in place. Models are trusted structures produced by this prototype; the explanation API does not certify arbitrary model artifacts or sandbox caller code.

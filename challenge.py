@@ -2,7 +2,7 @@
 """Synthetic observed-state changes and deliberately corrupted teacher labels."""
 import copy
 import json
-from app import dataset, train, predict, rollout
+from app import dataset, train, predict, predict_decision, rollout
 
 def demo():
     rows=dataset();model=train(rows)
@@ -18,7 +18,7 @@ def demo():
     trials=[]
     for name,policy,state,expected in cases:
         result=rollout(state,lambda observed:predict(policy,observed))
-        trials.append({"id":name,"expected_status":expected,"matched":result["status"]==expected,**result})
+        trials.append({"id":name,"expected_status":expected,"matched":result["status"]==expected,"initial_prediction":predict_decision(policy,state),**result})
     return {"data":"synthetic-state-and-teacher-challenges","trials":trials,
             "matched":sum(t["matched"] for t in trials),
             "limitation":"Tiny decision trees trained locally on synthetic rows. Changed initial states and labels, not a changed environment transition model or LLM distillation. A caught invalid action is successful detection, not task completion. No generalized transfer claim."}

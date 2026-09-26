@@ -1,9 +1,9 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 46 offline tests and all four hosted matrix jobs pass. Jev smoke results remain historical; no new live calls.
+Verified: 53 tests and five offline CLI paths pass locally; hosted checks for this change pending. Jev smoke results remain historical; no new live calls.
 
-Latest: Training, teacher audits and prediction validate malformed inputs before producing a model or prediction.
+Latest: Decision reports distinguish handoff reasons and show traversed branches and leaf support.
 
 Next: Evaluate a separately specified transition change before claiming adaptation to changed environments.
 
@@ -51,3 +51,5 @@ spending; tests train only the existing tiny synthetic decision-tree fixtures.
 2026-09-23 10:54 UTC verification follow-up: Published code and all four hosted jobs verified after the earlier approval-review usage-limit interruption. Existing check suites were not rerun solely to create history. Run: https://github.com/Ppetip/skill-foundry/actions/runs/35829403189
 
 2026-09-23 14:55 UTC: Added guidance for interpreting saved-check freshness in the optional local Codex runner. A current check validates training, prediction and environment behavior on controlled fixtures. It does not certify a separately trained model or novel-task performance. The shared runner now records check-source fingerprints and provides read-only status. All five current app checks passed (234 tests total), along with 24 local runner regressions. Run ID: 811900b822db42e390b5e1714afbbe25. App implementation unchanged; this documentation update skips redundant hosted CI. No live calls or new performance claim.
+
+2026-09-26 19:00 UTC: Added predict_decision and challenge initial_prediction reports. The action-only predict API uses the same guarded rule. Explanations distinguish support guards, threshold abstention, learned handoff and selected action, without bypassing environment checks. Local check 714606230df04ac7b9a8eb07260ef4c2 passed. Hosted verification pending. No Jev calls or deployment.

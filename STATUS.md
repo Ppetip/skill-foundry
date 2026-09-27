@@ -55,3 +55,5 @@ spending; tests train only the existing tiny synthetic decision-tree fixtures.
 2026-09-26 19:00 UTC: Added predict_decision and challenge initial_prediction reports. The action-only predict API uses the same guarded rule. Explanations distinguish support guards, threshold abstention, learned handoff and selected action, without bypassing environment checks. Local check 714606230df04ac7b9a8eb07260ef4c2 passed. All four hosted Windows/Linux Python 3.11/3.13 jobs pass. No Jev calls or deployment.
 
 Prediction-explanation verification: https://github.com/Ppetip/skill-foundry/actions/runs/36264821411
+
+2026-09-27 07:00 UTC: Shared-runner routing changes passed the existing policy, handoff and precondition checks; no model deployment or changed-environment performance is claimed. All five common-runner check routes passed (280 app tests and 28 CLI paths total), plus 32 shared-runner regressions. Check run ffd76d632c9246f4969e0cbbbacb538f. Shared integration is local to the AI Lab workspace, not included in a standalone repository clone. Existing app-source hosted results remain applicable; this documentation update skips redundant hosted CI. No paid calls.

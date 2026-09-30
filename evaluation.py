@@ -4,12 +4,16 @@ from app import dataset, predict, rollout, train, validate_state
 
 
 def evaluate_cases(model, cases):
+    if not isinstance(cases, list):
+        raise ValueError("cases must be an array")
     ids = set()
     for case in cases:
+        if not isinstance(case, dict):
+            raise ValueError('cases must be objects')
         if not isinstance(case.get('id'), str) or not case['id'] or case['id'] in ids:
             raise ValueError('unique case IDs required')
         ids.add(case['id'])
-        validate_state(case['state'])
+        validate_state(case.get('state'))
     partitions = {'seen_initial_state': [], 'held_out_initial_state': []}
     for case in cases:
         key = 'seen_initial_state' if json.dumps(case['state'], sort_keys=True) in model['known_states'] else 'held_out_initial_state'

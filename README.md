@@ -25,7 +25,7 @@ For commands using a file under `runs/`, create that directory first (`mkdir run
 python -m unittest discover -s tests -v
 ```
 
-55 tests and five offline CLI paths pass on Windows and Linux with Python 3.11 and 3.13 (GitHub Actions).
+59 tests and five offline CLI paths pass locally; hosted verification for holdout input validation is pending.
 
 ## Architecture
 
@@ -144,3 +144,21 @@ Leaf purity is the fraction of training rows at that leaf carrying its majority 
 `python challenge.py` now includes `initial_prediction` for each synthetic case. It explains only that case's starting decision, not every later rollout step. The deliberately corrupted teacher can still produce a selected but invalid refund; the environment rejects it. This report makes that distinction visible without changing the environment rules. The example trains tiny local decision trees, not an LLM, and is not a production reliability benchmark.
 
 Prediction only reads the caller-supplied in-memory model and state; it does not execute tools, train, deploy or write files. State and threshold validation remain in place. Models are trusted structures produced by this prototype; the explanation API does not certify arbitrary model artifacts or sandbox caller code.
+
+## Holdout input contract
+
+`evaluation.evaluate_cases(model, cases)` requires a list of case objects, each with
+a unique nonempty string `id` and a valid `state`. Convert an intentional iterable
+to a list before calling it. Generators, tuples, strings and mappings are rejected
+with `ValueError`; generators previously could be exhausted during validation and
+silently produce a zero-case report. Non-object cases and missing states also raise
+`ValueError`. Every case is validated before the first rollout, so an invalid late
+case cannot leave a partially evaluated batch.
+
+An explicit empty list remains valid and returns zero counts and empty trials in
+both partitions. Valid inputs retain the existing seen/held-out initial-state split
+and outcomes. This input check does not validate arbitrary model artifacts, establish
+independent scenario labels or demonstrate generalization; the model remains a
+trusted in-memory structure from this prototype. No files or provider calls are
+made by this evaluator. The CLI `python evaluation.py` still runs its labeled
+synthetic example.

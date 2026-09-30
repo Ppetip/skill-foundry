@@ -1,7 +1,7 @@
 # Status
 
 Stage: command-line prototype with optional live Jev integration.
-Verified: 59 tests and five offline CLI paths pass locally; hosted checks for this change pending. Jev smoke results remain historical; no new live calls.
+Verified: 59 tests and five offline CLI paths pass locally; all four hosted checks pass. Jev smoke results remain historical; no new live calls.
 
 Latest: Holdout evaluation rejects malformed collections before any rollout, preventing silently dropped generator cases.
 
@@ -66,4 +66,6 @@ Pricing-review verification: https://github.com/Ppetip/skill-foundry/actions/run
 
 2026-09-29 23:00 UTC: Shared-runner routing changes pass policy, handoff and precondition checks; no deployment or new task-quality estimate is claimed. All five common checks pass (312 app tests, 31 CLI paths), plus 44 shared-runner regressions. Check run 5e891ea4ba6c48658f9dcb20c00c1d26. Shared integration stays local to the AI Lab workspace; app-source hosted evidence is unchanged. Documentation-only update skips redundant CI. No live calls.
 
-2026-09-30 19:03 UTC: Reproduced a holdout bug: one supplied generator case was consumed during validation and reported as zero evaluated cases. The evaluator now requires a list of case objects, rejects malformed collections and missing states with ValueError, and validates the full batch before rollout. Valid empty lists still return explicit zero counts. Four new regression methods cover collection types including generators, invalid late cases with no rollout, unchanged seen/held-out results and input preservation, and empty-list behavior. Required common check 5d68344e42e74a1ba98df77bc799d456 passes 59 tests and five CLI paths. Hosted verification pending. Synthetic local tree tests only; no LLM training, paid calls, deployment or ledger changes.
+2026-09-30 19:03 UTC: Reproduced a holdout bug: one supplied generator case was consumed during validation and reported as zero evaluated cases. The evaluator now requires a list of case objects, rejects malformed collections and missing states with ValueError, and validates the full batch before rollout. Valid empty lists still return explicit zero counts. Four new regression methods cover collection types including generators, invalid late cases with no rollout, unchanged seen/held-out results and input preservation, and empty-list behavior. Required common check 5d68344e42e74a1ba98df77bc799d456 passes 59 tests and five CLI paths. All four hosted Windows/Linux Python 3.11/3.13 jobs pass. Synthetic local tree tests only; no LLM training, paid calls, deployment or ledger changes.
+
+Holdout-input verification: https://github.com/Ppetip/skill-foundry/actions/runs/36763528826
